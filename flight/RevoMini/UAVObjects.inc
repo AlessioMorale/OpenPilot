@@ -94,7 +94,8 @@ UAVOBJSRCFILENAMES += altitudeholdsettings
 UAVOBJSRCFILENAMES += altitudeholddesired
 UAVOBJSRCFILENAMES += waypoint
 UAVOBJSRCFILENAMES += waypointactive
-
+UAVOBJSRCFILENAMES += poilocation
+UAVOBJSRCFILENAMES += poilearnsettings
 UAVOBJSRCFILENAMES += txpidsettings
 
 #Support for radio module on RM

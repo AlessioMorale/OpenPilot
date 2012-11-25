@@ -414,10 +414,14 @@ static void manualControlTask(void *parameters)
 						altitudeHoldDesired(&cmd, lastFlightMode != flightStatus.FlightMode);
 						break;
 					case FLIGHTSTATUS_FLIGHTMODE_POSITIONHOLD:
+					case FLIGHTSTATUS_FLIGHTMODE_POI:
 						updatePathDesired(&cmd, lastFlightMode != flightStatus.FlightMode, false);
 						break;
 					case FLIGHTSTATUS_FLIGHTMODE_RETURNTOBASE:
 						updatePathDesired(&cmd, lastFlightMode != flightStatus.FlightMode, true);
+						break;
+					case FLIGHTSTATUS_FLIGHTMODE_PATHPLANNER:
+						// No need to call anything.  This just avoids errors.
 						break;
 					default:
 						AlarmsSet(SYSTEMALARMS_ALARM_MANUALCONTROL, SYSTEMALARMS_ALARM_CRITICAL);
@@ -684,12 +688,12 @@ static void updatePathDesired(ManualControlCommandData * cmd, bool changed,bool 
 		
 		PathDesiredData pathDesired;
 		PathDesiredGet(&pathDesired);
-		pathDesired.Start[PATHDESIRED_END_NORTH] = positionActual.North;
-		pathDesired.Start[PATHDESIRED_END_EAST] = positionActual.East;
-		pathDesired.Start[PATHDESIRED_END_DOWN] = positionActual.Down - 10;
+		pathDesired.Start[PATHDESIRED_START_NORTH] = positionActual.North;
+		pathDesired.Start[PATHDESIRED_START_EAST] = positionActual.East;
+		pathDesired.Start[PATHDESIRED_START_DOWN] = positionActual.Down;
 		pathDesired.End[PATHDESIRED_END_NORTH] = positionActual.North;
 		pathDesired.End[PATHDESIRED_END_EAST] = positionActual.East;
-		pathDesired.End[PATHDESIRED_END_DOWN] = positionActual.Down - 10;
+		pathDesired.End[PATHDESIRED_END_DOWN] = positionActual.Down;
 		pathDesired.StartingVelocity=1;
 		pathDesired.EndingVelocity=0;
 		pathDesired.Mode = PATHDESIRED_MODE_FLYENDPOINT;

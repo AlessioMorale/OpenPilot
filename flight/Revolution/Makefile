@@ -83,6 +83,7 @@ MODULES += GPS AltitudeHold VtolPathFollower FixedWingPathFollower PathPlanner
 MODULES += CameraStab
 MODULES += OveroSync
 MODULES += Telemetry
+MODULES += Autotune
 PYMODULES = 
 #FlightPlan
 
@@ -197,6 +198,7 @@ SRC += $(PIOSCOMMON)/printf-stdarg.c
 SRC += $(PIOSCOMMON)/pios_usb_desc_hid_cdc.c
 SRC += $(PIOSCOMMON)/pios_usb_desc_hid_only.c
 SRC += $(PIOSCOMMON)/pios_usb_util.c
+SRC += $(PIOSCOMMON)/pios_hcsr04.c
 
 include ./UAVObjects.inc
 SRC += $(UAVOBJSRC)
