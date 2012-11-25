@@ -82,6 +82,7 @@
 #define TASK_PRIORITY (tskIDLE_PRIORITY+2)
 #define F_PI 3.14159265358979323846f
 #define RAD2DEG(rad) ((rad)*(180.0f/F_PI))
+#define DEG2RAD(deg) ((deg)*(F_PI/180.0f))
 
 // Private types
 
@@ -445,13 +446,13 @@ void updateEndpointVelocity()
 			GPSPositionGet(&gpsPosition);
 			HomeLocationData homeLocation;
 			HomeLocationGet(&homeLocation);
-			float lat = homeLocation.Latitude / 10.0e6f * DEG2RAD;
+			float lat = DEG2RAD(homeLocation.Latitude / 10.0e6f) ;
 			float alt = homeLocation.Altitude;
 			float T[3] = { alt+6.378137E6f,
 				     cosf(lat)*(alt+6.378137E6f),
 				     -1.0f};
-			float NED[3] = {T[0] * ((gpsPosition.Latitude - homeLocation.Latitude) / 10.0e6f * DEG2RAD),
-				T[1] * ((gpsPosition.Longitude - homeLocation.Longitude) / 10.0e6f * DEG2RAD),
+			float NED[3] = {T[0] * (DEG2RAD((gpsPosition.Latitude - homeLocation.Latitude) / 10.0e6f) ),
+				T[1] * (DEG2RAD((gpsPosition.Longitude - homeLocation.Longitude) / 10.0e6f)),
 				T[2] * ((gpsPosition.Altitude + gpsPosition.GeoidSeparation - homeLocation.Altitude))};
 
 			northPos = NED[0];
